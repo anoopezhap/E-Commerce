@@ -1,0 +1,56 @@
+const Product = require("./../models/productmodel");
+const User = require("./../models/usermodel");
+
+exports.getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find({});
+    res.json({ products });
+  } catch (err) {
+    res.status(400).json({ type: "Something happend" });
+  }
+};
+
+exports.checkout = async (req, res) => {
+  const { customerID, cartItems } = req.body;
+
+  //cartItems = {id1:5,id2:50,id6:3)}
+
+  try {
+    //get the user and update the product purchsed and the available money
+    // get the product list and update the stock quantity
+    const user = await User.findById(customerID);
+
+    //getting the list of product ids in the cart
+    const productIDs = Object.keys(cartItems);
+
+    const products = await Product.find({ _id: { $in: productIDs } });
+
+    if (!user) {
+      return res.status(400).json({ type: "The user is not found" });
+    }
+
+    if (products.length !== productIDs.length) {
+      return res.status(400).json({ type: "No Product found" });
+    }
+
+    let totalPrice = 0;
+
+    for (let id in cartItems) {
+      const product = products.find((product) => product._id === id);
+
+      if (!product) {
+        return res.status(400).json({ type: "No product found" });
+      }
+
+      if (product.stockQuantity < cartItems[id]) {
+        return res.status(400).json({ type: "product out of stock" });
+      }
+
+      totalPrice = totalPrice + product.price * cartItems[items];
+
+      product.stockQuantity = product.stockQuantity - cartItems[id];
+    }
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
