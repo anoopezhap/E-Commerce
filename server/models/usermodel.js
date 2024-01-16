@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 5000,
   },
+  purchasedItems: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "product", default: [] },
+  ],
 });
 
 //Create a model from the scheme

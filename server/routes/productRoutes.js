@@ -3,7 +3,7 @@ const productController = require("../controllers/productController");
 const userController = require("./../controllers/userController");
 const router = express.Router();
 
-router.get("/", userController.verifyToken, productController.getAllProducts);
+router.get("/", productController.getAllProducts);
 
-router.get("/checkout", userController.verifyToken);
+router.post("/checkout", productController.checkout);
 module.exports = router;
