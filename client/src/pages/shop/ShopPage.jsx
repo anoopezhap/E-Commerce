@@ -5,7 +5,7 @@ import Spinner from "./../../components/Spinner";
 import { useCookies } from "react-cookie";
 import Product from "./Product";
 
-import "./styles.css";
+import ShopPageCSS from "./ShopPage.module.css";
 
 function ShopPage() {
   const [cookies, _] = useCookies(["access_token"]);
@@ -14,6 +14,7 @@ function ShopPage() {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["productList"],
     queryFn: () => fetchProducts(access_token),
+    staleTime: 0,
   });
 
   if (isPending) {
@@ -27,8 +28,8 @@ function ShopPage() {
   }
 
   return (
-    <div className="shop">
-      <div className="products">
+    <div className={ShopPageCSS.shop}>
+      <div className={ShopPageCSS.products}>
         {data.map((product) => (
           <Product product={product} key={product._id} />
         ))}

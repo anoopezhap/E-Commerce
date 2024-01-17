@@ -1,22 +1,25 @@
-import "./styles.css";
+import ProductCSS from "./Product.module.css";
 
 function Product({ product }) {
   const { _id, productName, price, description, imageURL, stockQuantity } =
     product;
   return (
-    <div className="product">
+    <div className={ProductCSS.product}>
       <img src={imageURL} />
-      <div className="description">
+      <div className={ProductCSS.description}>
         <h3>{productName}</h3>
         <p>{description}</p>
         <p>${price}</p>
       </div>
 
-      <button className="add-to-cart-bttn">Add to cart</button>
-
-      <div className="stock-quantity">
+      <div className={ProductCSS.stockQuantity}>
         {stockQuantity === 0 && <h1>OUT OF STOCK</h1>}
       </div>
+      {stockQuantity !== 0 ? (
+        <button className={ProductCSS.addToCartBttn}>Add to cart</button>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

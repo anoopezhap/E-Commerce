@@ -12,7 +12,13 @@ import PurchasedItemsPage from "./pages/purchased-items/PurchasedItemsPage";
 import ShopPage from "./pages/shop/ShopPage";
 import Navbar from "./components/Navbar";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0,
+    },
+  },
+});
 
 function App() {
   return (

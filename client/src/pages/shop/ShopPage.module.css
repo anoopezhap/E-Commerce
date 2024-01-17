@@ -1,4 +1,4 @@
-.products {
+/* .products {
   margin-top: 100px;
   width: 100%;
   height: auto;
@@ -46,4 +46,13 @@
   background-color: rgb(19, 19, 19);
   color: white;
   cursor: pointer;
+} */
+
+.products {
+  margin-top: 100px;
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
 }

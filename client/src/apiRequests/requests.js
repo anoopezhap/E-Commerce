@@ -6,6 +6,6 @@ export async function fetchProducts(access_token) {
   const res = await axios.get("http://localhost:3001/product", {
     headers: { authorization: access_token },
   });
-  console.log(res.data.products);
+  //console.log(res.data.products);
   return res.data.products;
 }
