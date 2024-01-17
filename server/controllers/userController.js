@@ -62,7 +62,7 @@ exports.verifyToken = async (req, res, next) => {
 
       next();
     });
+  } else {
+    return res.status(401).json({ type: "Please login again to continue" });
   }
-
-  return res.status(401).json({ type: "Please login again to continue" });
 };
