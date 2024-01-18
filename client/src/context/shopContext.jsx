@@ -23,9 +23,13 @@ function ShopContextProvider({ children }) {
     }
   }
 
-  function removeFromCart(itemId) {}
+  function removeFromCart(itemId) {
+    setCartItems((curr) => ({ ...curr, [itemId]: curr[itemId] - 1 }));
+  }
 
-  function updateCartItemCount(newAmount, itemId) {}
+  function updateCartItemCount(newAmount, itemId) {
+    setCartItems((curr) => ({ ...curr, [itemId]: newAmount }));
+  }
 
   const value = {
     addToCart,

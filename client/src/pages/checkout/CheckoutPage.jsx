@@ -3,6 +3,7 @@ import CheckoutPagecss from "./CheckoutPage.module.css";
 import { useContext } from "react";
 import { ShopContext } from "../../context/shopContext";
 import CartItem from "./CartItem";
+import SubTotal from "./SubTotal";
 
 function CheckoutPage() {
   const queryClient = useQueryClient();
@@ -25,6 +26,13 @@ function CheckoutPage() {
     quantity: cartItems[product._id],
   }));
 
+  //console.log(cartList);
+
+  const totalPrice = cartList?.reduce((accu, product) => {
+    return accu + product.price * product.quantity;
+  }, 0);
+
+  //console.log("totalprice", totalPrice);
   // console.log("cartList", cartList);
 
   //  return {cartList.length >0 ?() : ()}
@@ -32,17 +40,22 @@ function CheckoutPage() {
   return (
     <div className={CheckoutPagecss.cart}>
       <div>
-        <h1>Your Cart Items</h1>
+        <h1 className="mb-10 text-center text-2xl font-bold">
+          Your Cart Items
+        </h1>
       </div>
 
       {cartList?.length === 0 ? (
-        <div>Please add product </div>
+        <div>Your cart is empty. Please add products to contirnue </div>
       ) : (
-        <div className={CheckoutPagecss.cart}>
-          {cartList?.map((product) => (
-            <CartItem product={product} key={product._id} />
-          ))}
-        </div>
+        <>
+          <div className={CheckoutPagecss.cart}>
+            {cartList?.map((product) => (
+              <CartItem product={product} key={product._id} />
+            ))}
+          </div>
+          <SubTotal totalPrice={totalPrice} />
+        </>
       )}
     </div>
   );

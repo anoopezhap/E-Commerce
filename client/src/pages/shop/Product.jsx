@@ -5,7 +5,7 @@ import { ShopContext } from "../../context/shopContext";
 function Product({ product }) {
   const { addToCart, cartItems, getCartItemCount } = useContext(ShopContext);
 
-  console.log(cartItems);
+  //console.log(cartItems);
 
   const { _id, productName, price, description, imageURL, stockQuantity } =
     product;
