@@ -11,6 +11,7 @@ import CheckoutPage from "./pages/checkout/CheckoutPage";
 import PurchasedItemsPage from "./pages/purchased-items/PurchasedItemsPage";
 import ShopPage from "./pages/shop/ShopPage";
 import Navbar from "./components/Navbar";
+import { ShopContextProvider } from "./context/shopContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,13 +27,15 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<ShopPage />} />
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/purchased-items" element={<PurchasedItemsPage />} />
-          </Routes>
+          <ShopContextProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<ShopPage />} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/purchased-items" element={<PurchasedItemsPage />} />
+            </Routes>
+          </ShopContextProvider>
         </BrowserRouter>
       </QueryClientProvider>
     </div>
