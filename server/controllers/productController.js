@@ -13,6 +13,8 @@ exports.getAllProducts = async (req, res) => {
 exports.checkout = async (req, res) => {
   const { customerID, cartItems } = req.body;
 
+  //console.log(req.body);
+
   // console.log("customerID", customerID);
   // console.log("cartItems", cartItems);
 

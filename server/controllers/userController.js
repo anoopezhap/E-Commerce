@@ -66,3 +66,19 @@ exports.verifyToken = async (req, res, next) => {
     return res.status(401).json({ type: "Please login again to continue" });
   }
 };
+
+exports.getAvailableMoney = async (req, res) => {
+  const { userID } = req.params;
+
+  try {
+    const user = await User.findById(userID);
+
+    if (!user) {
+      res.status(400).json({ type: "Please login to continue" });
+    }
+
+    res.json({ availableMoney: user.availableMoney });
+  } catch (err) {
+    res.status(500).json({ type: err });
+  }
+};

@@ -5,5 +5,9 @@ const router = express.Router();
 
 router.get("/", userController.verifyToken, productController.getAllProducts);
 
-router.post("/checkout", productController.checkout);
+router.post(
+  "/checkout",
+  userController.verifyToken,
+  productController.checkout
+);
 module.exports = router;
