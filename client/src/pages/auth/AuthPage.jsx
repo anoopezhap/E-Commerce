@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./../auth/styles.css";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router";
+import { ShopContext } from "../../context/shopContext";
+import { useLocation } from "react-router-dom";
 
 export default function AuthPage() {
   return (
@@ -70,11 +72,15 @@ const Register = () => {
 };
 
 const Login = () => {
-  const [loginUsername, setLoginUsername] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+  const [loginUsername, setLoginUsername] = useState("test");
+  const [loginPassword, setLoginPassword] = useState("password");
 
   const [_, setCookies] = useCookies(["access_token"]);
   const navigate = useNavigate();
+
+  const { state } = useLocation();
+
+  const { isAuthenticated, setIsAuthenticated } = useContext(ShopContext);
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -92,8 +98,10 @@ const Login = () => {
       setLoginUsername("");
       setLoginPassword("");
 
+      setIsAuthenticated(true);
+
       //navigating to the shop page
-      navigate("/");
+      navigate(state?.path || "/");
     } catch (err) {
       console.log(err);
       if (err.response.data.type === "no user found") {

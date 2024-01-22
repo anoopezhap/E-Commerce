@@ -30,6 +30,17 @@ export async function fetchAvailableMoney(access_token, customerID) {
     }
   );
 
-  console.log(availableMoney.data.availableMoney);
+  //console.log(availableMoney.data.availableMoney);
   return availableMoney.data.availableMoney;
+}
+
+export async function fetchPurchasedProducts(access_token, customerID) {
+  const purchasedProducts = await axios.get(
+    `http://localhost:3001/product/purchased-items/${customerID}`,
+    {
+      headers: { authorization: access_token },
+    }
+  );
+
+  return purchasedProducts.data.products;
 }

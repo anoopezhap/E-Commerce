@@ -12,6 +12,7 @@ import PurchasedItemsPage from "./pages/purchased-items/PurchasedItemsPage";
 import ShopPage from "./pages/shop/ShopPage";
 import Navbar from "./components/Navbar";
 import { ShopContextProvider } from "./context/shopContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,10 +31,32 @@ function App() {
           <ShopContextProvider>
             <Navbar />
             <Routes>
-              <Route path="/" element={<ShopPage />} />
               <Route path="/auth" element={<AuthPage />} />
-              <Route path="/checkout" element={<CheckoutPage />} />
-              <Route path="/purchased-items" element={<PurchasedItemsPage />} />
+
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <ShopPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/checkout"
+                element={
+                  <ProtectedRoute>
+                    <CheckoutPage />{" "}
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/purchased-items"
+                element={
+                  <ProtectedRoute>
+                    <PurchasedItemsPage />
+                  </ProtectedRoute>
+                }
+              />
             </Routes>
           </ShopContextProvider>
         </BrowserRouter>

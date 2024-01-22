@@ -83,3 +83,21 @@ exports.checkout = async (req, res) => {
     res.status(400).json(err);
   }
 };
+
+exports.purchasedItems = async (req, res) => {
+  const { customerID } = req.params;
+
+  try {
+    const user = await User.findById(customerID);
+
+    if (!user) {
+      res.status(400).json({ type: "Please login to continue" });
+    }
+
+    const products = await Product.find({ _id: { $in: user.purchasedItems } });
+
+    res.json({ products });
+  } catch (err) {
+    res.status(500).json({ type: err });
+  }
+};

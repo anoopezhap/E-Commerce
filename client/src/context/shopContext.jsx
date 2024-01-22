@@ -7,6 +7,7 @@ const ShopContext = createContext(null);
 
 function ShopContextProvider({ children }) {
   const [cartItems, setCartItems] = useState({});
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const [cookies, _] = useCookies(["access_token"]);
   const access_token = cookies.access_token;
@@ -45,6 +46,8 @@ function ShopContextProvider({ children }) {
     access_token,
     customerID,
     setCartItems,
+    isAuthenticated,
+    setIsAuthenticated,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

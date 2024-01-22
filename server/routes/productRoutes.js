@@ -10,4 +10,11 @@ router.post(
   userController.verifyToken,
   productController.checkout
 );
+
+router.get(
+  "/purchased-items/:customerID",
+  userController.verifyToken,
+  productController.purchasedItems
+);
+
 module.exports = router;

@@ -4,13 +4,16 @@ import { useContext } from "react";
 import { ShopContext } from "../../context/shopContext";
 import CartItem from "./CartItem";
 import SubTotal from "./SubTotal";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function CheckoutPage() {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const products = queryClient.getQueryData(["productList"]);
 
-  const { cartItems } = useContext(ShopContext);
+  const { cartItems, isAuthenticated, setIsAuthenticated } =
+    useContext(ShopContext);
 
   // console.log(products);
   // console.log(cartItems);
@@ -31,11 +34,6 @@ function CheckoutPage() {
   const totalPrice = cartList?.reduce((accu, product) => {
     return accu + product.price * product.quantity;
   }, 0);
-
-  //console.log("totalprice", totalPrice);
-  // console.log("cartList", cartList);
-
-  //  return {cartList.length >0 ?() : ()}
 
   return (
     <div className={CheckoutPagecss.cart}>
