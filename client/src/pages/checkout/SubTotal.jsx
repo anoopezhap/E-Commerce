@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { checkout } from "../../apiRequests/requests";
 import { useContext } from "react";
 import { ShopContext } from "../../context/shopContext";
+import { toast } from "react-hot-toast";
 
 function SubTotal({ totalPrice }) {
   const navigate = useNavigate();
@@ -20,6 +21,10 @@ function SubTotal({ totalPrice }) {
       navigate("/");
       setCartItems({});
       queryClient.invalidateQueries(["productList", "availableMoney"]);
+    },
+    onError: (err) => {
+      console.log(err.response.data.type);
+      toast.error(err.response.data.type);
     },
   });
 

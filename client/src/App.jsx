@@ -26,7 +26,6 @@ function App() {
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
         <BrowserRouter>
           <ShopContextProvider>
             <Navbar />

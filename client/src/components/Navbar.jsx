@@ -26,7 +26,10 @@ function Navbar() {
     localStorage.clear();
     setCookies("access_token", null);
     setIsAuthenticated(false);
-    queryClient.invalidateQueries({ queryKey: ["availableMoney"] });
+    queryClient.invalidateQueries({
+      queryKey: ["availableMoney"],
+      refetchType: "all",
+    });
   }
 
   return (
@@ -40,14 +43,14 @@ function Navbar() {
           <>
             {" "}
             <Link to="/">Shop</Link>
-            <Link to="/purchased-items">Purchases</Link>
+            <Link to="/purchased-items">Order History</Link>
             <Link to="/checkout">
               <FontAwesomeIcon icon={faShoppingCart}></FontAwesomeIcon>
             </Link>
             <Link to="/auth" onClick={logout}>
               LogOut
             </Link>
-            <span>{isPending ? "loading" : `$ ${data}`}</span>
+            <span>{isPending ? "loading" : `Available Balance$ ${data}`}</span>
           </>
         )}
       </div>

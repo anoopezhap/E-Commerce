@@ -29,11 +29,14 @@ function CheckoutPage() {
     quantity: cartItems[product._id],
   }));
 
-  //console.log(cartList);
+  console.log(cartList);
 
   const totalPrice = cartList?.reduce((accu, product) => {
     return accu + product.price * product.quantity;
   }, 0);
+
+  // console.log("cartList", cartList);
+  // console.log("cartItems", cartItems.length);
 
   return (
     <div className={CheckoutPagecss.cart}>
